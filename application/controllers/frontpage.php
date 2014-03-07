@@ -4,6 +4,13 @@ class Frontpage extends Main_Controller {
    public function index()
 	{
       $this->load->view('include/header');
+      try {
+          $className = array('name' => 'TestObj');
+      } catch (Exception $e) {
+        
+      }
+          $this->load->library('parse/ParseObject', $className);
+ //     $this->parseobject->
       $this->load->view('frontpage');
       $this->load->view('include/footer');
 	}
