@@ -24,9 +24,8 @@ class Users extends CI_Controller {
         }
 
         if (!$authFailed) {
-            $data['request'] = $request;
-            $this->load->view('users', $data);
-//            $this->session->set_userdata($dataArr);
+            $this->session->set_userdata(array('sessionToken' => $request->sessionToken));
+            redirect('frontpage/index');
         } else {
             $data['message'] = 'Incorrect username or password';
             $this->load->helper('form');
@@ -38,5 +37,6 @@ class Users extends CI_Controller {
 
     public function logout() {
         $this->session->sess_destroy();
+        redirect('frontpage/index');
     }
 }

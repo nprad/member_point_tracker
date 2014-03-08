@@ -28,8 +28,8 @@
           </button>
           <a class="navbar-brand" href="<?php echo base_url(''); ?>"><?php echo APP_NAME ?></a>
         </div>
-
         <?php
+            if (!$validSession) {
             $formAttr = array('class' => 'navbar-form navbar-right', 'role' => 'form');
             $userAttr = array('class' => 'form-control', 'name' => 'username', 'placeholder' => 'Username');
             $passAttr = array('class' => 'form-control', 'name' => 'password', 'placeholder' => 'Password');
@@ -46,5 +46,10 @@
             <?php echo form_submit($submitAttr, 'Sign in'); ?>
           </form>
         </div><!--/.navbar-collapse -->
+        <?php
+            } else {
+            }
+        ?>
       </div>
     </div>
+
