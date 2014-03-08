@@ -9,6 +9,7 @@
 
     <title><?php echo APP_NAME ?></title>
 
+    <link href="<?php echo base_url('assets/img/favicon.ico') ?>" rel="icon" type="image/x-icon">
 
     <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/font-awesome.css') ?>" rel="stylesheet">
@@ -25,17 +26,24 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><?php echo APP_NAME ?></a>
+          <a class="navbar-brand" href="<?php echo base_url(''); ?>"><?php echo APP_NAME ?></a>
         </div>
+
+        <?php
+            $formAttr = array('class' => 'navbar-form navbar-right', 'role' => 'form');
+            $userAttr = array('class' => 'form-control', 'name' => 'username', 'placeholder' => 'Username');
+            $passAttr = array('class' => 'form-control', 'name' => 'password', 'placeholder' => 'Password');
+            $submitAttr = array('class' => 'btn btn-success');
+        ?>
         <div class="navbar-collapse collapse">
-          <form class="navbar-form navbar-right" role="form">
+          <?php echo form_open('users/login', $formAttr); ?>
             <div class="form-group">
-              <input type="text" placeholder="Email" class="form-control">
+              <?php echo form_input($userAttr); ?>
             </div>
             <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
+              <?php echo form_password($passAttr); ?>
             </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
+            <?php echo form_submit($submitAttr, 'Sign in'); ?>
           </form>
         </div><!--/.navbar-collapse -->
       </div>
