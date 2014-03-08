@@ -3,14 +3,10 @@ class Frontpage extends Main_Controller {
 
    public function index()
 	{
+      $this->load->library('parse');
+      $user = $this->parse->ParseUser();
+      $user->signup("st029", "bar", "sam.thompson028@gmail.com");
       $this->load->view('include/header');
-      try {
-          $className = array('name' => 'TestObj');
-      } catch (Exception $e) {
-        
-      }
-          $this->load->library('parse/ParseObject', $className);
- //     $this->parseobject->
       $this->load->view('frontpage');
       $this->load->view('include/footer');
 	}

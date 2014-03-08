@@ -3,18 +3,20 @@
 include_once 'ParseRestClient.php';
 
 class ParseObject extends ParseRestClient{
+
 	public $_includes = array();
 	private $_className = '';
 
-	public function __construct($array){
-		if($array['name'] != ''){
-			$this->_className = $array['name'];
+	public function __construct($name){
+		parent::__construct();
+
+		if($name != ''){
+			$this->_className = $name;
 		}
 		else{
 			$this->throwError('include the className when creating a ParseObject');
 		}
 
-		parent::__construct();
 	}
 
 	public function __set($name,$value){
