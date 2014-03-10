@@ -41,6 +41,9 @@
 $route['default_controller'] = "users";
 $route['404_override'] = 'errors/four_oh_four';
 $route['users/index'] = '/';
+$route['requirements'] = 'dash/requirements';
+$route['point-requests'] = 'dash/point_requests';
+$route['messages'] = 'dash/messages';
 
 
 

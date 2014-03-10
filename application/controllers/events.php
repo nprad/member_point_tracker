@@ -10,6 +10,7 @@ class Events extends CI_Controller {
     }
 
     public function view() {
-        $this->load->view('users');
+        $this->load->view('include/header', array('validSession' => TRUE));
+        $this->load->view('include/footer');
     }
 }

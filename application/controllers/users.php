@@ -2,17 +2,16 @@
 
 class Users extends CI_Controller {
 
-
     public function index() {
         if (!$this->session->userdata('loggedIn')) {
             $this->load->helper('form');
             $this->load->view('include/header', array('validSession' => FALSE));
             $this->load->view('frontpage');
+            $this->load->view('include/footer');
         } else {
-            $this->load->view('include/header', array('validSession' => TRUE));
+            redirect('requirements');
         }
 
-        $this->load->view('include/footer');
     }
 
     public function login() {
