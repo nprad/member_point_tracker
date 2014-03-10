@@ -36,7 +36,7 @@
             $submitAttr = array('class' => 'btn btn-success');
         ?>
         <div class="navbar-collapse collapse">
-          <?php echo form_open('users/login', $formAttr); ?>
+          <?php echo form_open('login', $formAttr); ?>
             <div class="form-group">
               <?php echo form_input($userAttr); ?>
             </div>
@@ -50,9 +50,9 @@
             } else {
         ?>
         <div class="navbar-collapse collapse">
-            <a title="Log out" href="<?php echo base_url('index.php/users/logout'); ?>"><span class="glyphicon glyphicon-off white navbar-right glyphicon-navbar"></span></a>
+            <a title="Log out" href="<?php echo base_url('index.php/logout'); ?>"><span class="glyphicon glyphicon-log-out white navbar-right glyphicon-navbar"></span></a>
             <a href="<?php echo base_url(); ?>"><span title="Profile" class="glyphicon glyphicon-user white navbar-right glyphicon-navbar"></span></a>
-            <a href="<?php echo base_url('index.php/events/view'); ?>"><span title="Events" class="glyphicon glyphicon-calendar white navbar-right glyphicon-navbar"></span></a>
+            <a href="<?php echo base_url('index.php/events'); ?>"><span title="Events" class="glyphicon glyphicon-calendar white navbar-right glyphicon-navbar"></span></a>
         </div>
         <?php
             }

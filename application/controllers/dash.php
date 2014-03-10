@@ -24,4 +24,10 @@ class Dash extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    public function settings() {
+        $this->load->view('include/header', array('validSession' => TRUE));
+        $this->load->view('dash/sidebar', array('action' => 3));
+        $this->load->view('include/footer');
+    }
+
 }

@@ -20,7 +20,7 @@
             <?php
                 }
             ?>
-          <?php echo form_open('users/login', $formAttr); ?>
+          <?php echo form_open('login', $formAttr); ?>
             <div class="form-group">
               <?php echo form_input($userAttr); ?>
             </div>

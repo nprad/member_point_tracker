@@ -43,6 +43,7 @@ class Users extends CI_Controller {
             if (!$authFailed) {
                 $this->session->set_flashdata('login_error', '');
                 $this->session->set_userdata('loggedIn', TRUE);
+                $this->session->set_userdata('permissionLevel', $request->permissionLevel);
                 $this->session->set_userdata('objectId', $request->objectId);
                 redirect('');
             } else {
