@@ -48,6 +48,13 @@
         </div><!--/.navbar-collapse -->
         <?php
             } else {
+        ?>
+        <div class="navbar-collapse collapse">
+            <a title="Log out" href="<?php echo base_url('index.php/users/logout'); ?>"><span class="glyphicon glyphicon-off white navbar-right glyphicon-navbar"></span></a>
+            <a href="<?php echo base_url('#'); ?>"><span title="Profile" class="glyphicon glyphicon-user white navbar-right glyphicon-navbar"></span></a>
+            <a href="<?php echo base_url('index.php/events/view'); ?>"><span title="Events" class="glyphicon glyphicon-calendar white navbar-right glyphicon-navbar"></span></a>
+        </div>
+        <?php
             }
         ?>
       </div>

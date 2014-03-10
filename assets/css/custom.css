@@ -5,3 +5,22 @@
 body {
    padding-top: 15px;
 }
+
+.white {
+    color: white;
+}
+
+.black {
+    color: black;
+}
+
+.glyphicon-navbar {
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
+.navbar-collapse.in {
+    overflow-y: visible;
+}

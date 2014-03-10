@@ -10,9 +10,16 @@
         <div class="col-md-4"></div>
         <div class="col-md-4 well">
             <legend>Please sign in</legend>
+            <?php 
+                $error = $this->session->flashdata('login_error');
+                if (!empty($error)) {
+            ?>
             <div class="alert alert-danger">
-                <?php echo $message ?>
+                <?php echo $error; ?>
             </div>
+            <?php
+                }
+            ?>
           <?php echo form_open('users/login', $formAttr); ?>
             <div class="form-group">
               <?php echo form_input($userAttr); ?>

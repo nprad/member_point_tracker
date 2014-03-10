@@ -2,41 +2,66 @@
 
 class Users extends CI_Controller {
 
-    public function login() {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
 
-        $authFailed = FALSE;
-
-        if (!empty($username) && !empty($password)) {
-
-            $this->load->library('parse');
-            $user = $this->parse->ParseUser();
-
-            try {
-                $request = $user->login($username, $password);
-            } catch (Exception $e) {
-                $authFailed = TRUE;
-            }
-
+    public function index() {
+        if (!$this->session->userdata('loggedIn')) {
+            $this->load->helper('form');
+            $this->load->view('include/header', array('validSession' => FALSE));
+            $this->load->view('frontpage');
         } else {
-            $authFailed = TRUE;
+            $this->load->view('include/header', array('validSession' => TRUE));
         }
 
-        if (!$authFailed) {
-            $this->session->set_userdata(array('sessionToken' => $request->sessionToken));
-            redirect('frontpage/index');
+        $this->load->view('include/footer');
+    }
+
+    public function login() {
+        if (!$this->session->userdata('loggedIn')) {
+            $username = $this->input->post('username');
+            $password = $this->input->post('password');
+
+            $authFailed = FALSE;
+
+            $this->session->keep_flashdata('login_error');
+
+            if (!empty($username) && !empty($password)) {
+
+                $this->load->library('parse');
+                $user = $this->parse->ParseUser();
+
+                try {
+                    $request = $user->login($username, $password);
+                } catch (Exception $e) {
+                    $authFailed = TRUE;
+                    $this->session->set_flashdata('login_error', 'Incorrect username or password');
+                }
+
+            } else {
+                $authFailed = TRUE;
+                $this->session->set_flashdata('login_error', 'Incorrect username or password');
+            }
+
+            if (!$authFailed) {
+                $this->session->set_flashdata('login_error', '');
+                $this->session->set_userdata('loggedIn', TRUE);
+                $this->session->set_userdata('objectId', $request->objectId);
+                redirect('');
+            } else {
+                //for whatever reason the flash data only shows up when
+                //the login fails, not when it is brought up by another
+                //controller. hmm...
+                $this->load->helper('form');
+                $this->load->view('include/header-nologin');
+                $this->load->view('templates/login.php');
+                $this->load->view('include/footer');
+            }
         } else {
-            $data['message'] = 'Incorrect username or password';
-            $this->load->helper('form');
-            $this->load->view('include/header-nologin');
-            $this->load->view('templates/login.php', $data);
-            $this->load->view('include/footer');
+            redirect('');
         }
     }
 
     public function logout() {
         $this->session->sess_destroy();
-        redirect('frontpage/index');
+        redirect('');
     }
 }
