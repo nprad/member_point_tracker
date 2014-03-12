@@ -45,7 +45,8 @@ class Users extends CI_Controller {
                 $this->session->set_userdata('loggedIn', TRUE);
                 $this->session->set_userdata('permissionLevel', $request->permissionLevel);
                 $this->session->set_userdata('objectId', $request->objectId);
-                redirect('');
+                $this->session->set_userdata('name', $request->firstName . ' ' . $request->lastName);
+                redirect('dash');
             } else {
                 //for whatever reason the flash data only shows up when
                 //the login fails, not when it is brought up by another

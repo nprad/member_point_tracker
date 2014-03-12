@@ -38,19 +38,20 @@
 |
 */
 
-$route['default_controller'] = "users";
+$route['default_controller'] = 'info';
 $route['404_override'] = 'errors/four_oh_four';
 
 //User controller
-$route['users/index'] = '/';
+$route['info/index'] = '/';
 $route['login'] = 'users/login';
 $route['logout'] = 'users/logout';
 
 //Dash controller
-$route['requirements'] = 'dash/requirements';
-$route['point-requests'] = 'dash/point_requests';
-$route['messages'] = 'dash/messages';
-$route['settings'] = 'dash/settings';
+$route['dash'] = 'dash';
+$route['dash/requirements'] = 'dash/requirements';
+$route['dash/point-requests'] = 'dash/point_requests';
+$route['dash/messages'] = 'dash/messages';
+$route['dash/settings'] = 'dash/settings';
 
 //Events controller
 $route['events'] = 'events/index';
