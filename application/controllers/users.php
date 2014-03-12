@@ -2,17 +2,16 @@
 
 class Users extends CI_Controller {
 
-
     public function index() {
         if (!$this->session->userdata('loggedIn')) {
             $this->load->helper('form');
             $this->load->view('include/header', array('validSession' => FALSE));
             $this->load->view('frontpage');
+            $this->load->view('include/footer');
         } else {
-            $this->load->view('include/header', array('validSession' => TRUE));
+            redirect('requirements');
         }
 
-        $this->load->view('include/footer');
     }
 
     public function login() {
@@ -44,8 +43,10 @@ class Users extends CI_Controller {
             if (!$authFailed) {
                 $this->session->set_flashdata('login_error', '');
                 $this->session->set_userdata('loggedIn', TRUE);
+                $this->session->set_userdata('permissionLevel', $request->permissionLevel);
                 $this->session->set_userdata('objectId', $request->objectId);
-                redirect('');
+                $this->session->set_userdata('name', $request->firstName . ' ' . $request->lastName);
+                redirect('dash');
             } else {
                 //for whatever reason the flash data only shows up when
                 //the login fails, not when it is brought up by another
