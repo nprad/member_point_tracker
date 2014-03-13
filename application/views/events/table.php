@@ -21,4 +21,6 @@
               </tbody>
             </table>
           </div>
+<?php var_dump($events); ?>
         </div>
+

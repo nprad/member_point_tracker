@@ -21,9 +21,17 @@ class Dash extends CI_Controller {
     }
 
     public function point_requests() {
+        $this->load->library('parse');
+
+        //gets all requests at once, takes advantage of caching dbs
+        //to make the queries more effiecient
+        $pq = $this->parse->ParseQuery('VerificationRequests');
+        $pq->wherePointer('user', '_User', $this->session->userdata('objectId'));
+        $requests = $pq->find();
+
         $this->load->view('include/header');
         $this->load->view('dash/sidebar', array('action' => 1));
-        $this->load->view('dash/point_requests');
+        $this->load->view('dash/point_requests', array('pending' => $requests));
         $this->load->view('include/footer');
     }
 

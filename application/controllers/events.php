@@ -17,9 +17,11 @@ class Events extends CI_Controller {
     }
 
     public function event() {
-        $this->load->view('include/header', array('validSession' => TRUE));
+        $this->load->model('EventsCache', 'usercache');
+        $event = '';
+        $this->load->view('include/header');
         $this->load->view('events/sidebar', array('action' => 0));
-        $this->load->view('events/table.php');
+        $this->load->view('events/table.php', array('events' => $events));
         $this->load->view('include/footer');
     }
 
