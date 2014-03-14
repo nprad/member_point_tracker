@@ -29,9 +29,34 @@ class Dash extends CI_Controller {
         $pq->wherePointer('user', '_User', $this->session->userdata('objectId'));
         $requests = $pq->find();
 
+        $this->load->model('EventsCache', 'eventscache');
+        $pending = array();
+        $approved = array();
+        $rejected = array();
+        foreach ($requests->results as $req) {
+            $entry = array('event' => $this->eventscache->getName($req->event->objectId),
+               'type' => $req->pointType, 'dateSubmitted' => $req->createdAt);
+
+            switch($req->status) {
+                case PENDING:
+                    $entry['dateOfDecision'] = 'N/A';
+                    array_push($pending, $entry);
+                    break;
+                case APPROVED:
+                    $entry['dateOfDecision'] = $req->updatedAt;
+                    array_push($approved, $entry);
+                    break;
+                case REJECTED:
+                    $entry['dateOfDecision'] = $req->updatedAt;
+                    array_push($rejected, $entry);
+                    break;
+            }
+        }
+
         $this->load->view('include/header');
         $this->load->view('dash/sidebar', array('action' => 1));
-        $this->load->view('dash/point_requests', array('pending' => $requests));
+        $this->load->view('dash/point_requests', array('pending' => $pending,
+            'approved' => $approved, 'rejected' => $rejected));
         $this->load->view('include/footer');
     }
 

@@ -11,7 +11,7 @@ class UserCache extends CI_Model {
 
     public function getName($objectId) {
         $this->objectId = $objectId;
-        $query = $this->db->query('select name from usercache where objectId=? limit 1', array($objectId));
+        $query = $this->db->query('select name from usercache where objectId=?', array($objectId));
 
         if ($query->num_rows() > 0) {
             return $query->row()->name;
@@ -29,6 +29,6 @@ class UserCache extends CI_Model {
     public function updateName($objectId, $name) {
         $this->objectId = $objectId;
         $this->name = $name;
-        $this->db->update('usercache', $this, array('id' => $objectId);
+        $this->db->update('usercache', $this, array('id' => $objectId));
     }
 }
