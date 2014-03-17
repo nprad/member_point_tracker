@@ -10,17 +10,24 @@
                 </tr>
               </thead>
               <tbody>
+                <?php if (count($events) > 0): ?>
+                <?php foreach ($events as $e): ?>
                 <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
+                  <td><?=$e['date']; ?></td>
+                  <td><?=$e['name']; ?></td>
+                  <td><?=$e['creator']; ?></td>
                   <td><button type="button" class="btn btn-success">
   <span class="glyphicon glyphicon-ok"></span> I was there!
 </button></td>
                 </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
+                <tr>
+                    <td class="text-center" colspan=4>Nuthin'</td>
+                </tr>
+                <?php endif; ?>
               </tbody>
             </table>
           </div>
-<?php var_dump($events); ?>
         </div>
 
