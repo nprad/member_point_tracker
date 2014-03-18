@@ -10,7 +10,10 @@ class Dash extends CI_Controller {
     }
 
     public function index() {
-        redirect('dash/requirements');
+        $this->load->view('dash/header');
+        $this->load->view('dash/sidebar', array('action' => -1));
+        $this->load->view('dash/index');
+        $this->load->view('dash/footer');
     }
 
     public function requirements() {
@@ -26,6 +29,7 @@ class Dash extends CI_Controller {
 
         //gets all requests at once, takes advantage of caching dbs
         //to make the queries more effiecient
+        //will later move to mysql and create my own api
         $this->load->library('parse');
         $pq = $this->parse->ParseQuery('VerificationRequests');
         $pq->wherePointer('user', '_User', $this->session->userdata('objectId'));
