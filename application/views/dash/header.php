@@ -28,15 +28,15 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="<?php echo base_url(''); ?>"><?php echo APP_NAME ?></a>
+          <a class="navbar-brand" href="<?php echo base_url(INDEX); ?>"><?php echo APP_NAME ?></a>
         </div>
 
 <!--
         <div class="navbar-collapse navbar-right collapse">
             <ul class="nav navbar-nav">
-                <li><a title="Log out" href="<?php echo base_url('index.php/logout'); ?>"><span class="glyphicon glyphicon-log-out white navbar-right glyphicon-navbar"></span></a></li>
-                <li><a href="<?php echo base_url('index.php/requirements'); ?>"><span title="Profile" class="glyphicon glyphicon-user white navbar-right glyphicon-navbar"></span></a></li>
-                <li><a href="<?php echo base_url('index.php/events'); ?>"><span title="Events" class="glyphicon glyphicon-calendar white navbar-right glyphicon-navbar"></span></a></li>
+                <li><a title="Log out" href="<?php echo base_url('logout'); ?>"><span class="glyphicon glyphicon-log-out white navbar-right glyphicon-navbar"></span></a></li>
+                <li><a href="<?php echo base_url('requirements'); ?>"><span title="Profile" class="glyphicon glyphicon-user white navbar-right glyphicon-navbar"></span></a></li>
+                <li><a href="<?php echo base_url('events'); ?>"><span title="Events" class="glyphicon glyphicon-calendar white navbar-right glyphicon-navbar"></span></a></li>
             </ul>
         </div>-->
         <div class="navbar-collapse navbar-right collapse">
@@ -47,14 +47,14 @@
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('name'); ?><b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="<?php echo base_url('index.php/dash')?>">Dashboard</a></li>
-                    <li><a href="<?php echo base_url('index.php/events'); ?>">Events</a></li>
+                    <li><a href="<?php echo base_url(INDEX . 'dash')?>">Dashboard</a></li>
+                    <li><a href="<?php echo base_url(INDEX . 'events'); ?>">Events</a></li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url('index.php/logout');?>">Log out</a></li>
+                    <li><a href="<?php echo base_url(INDEX . 'logout');?>">Log out</a></li>
                   </ul>
                 </li>
                 <?php } else { ?>
-                <li><a href="<?php echo base_url('index.php/login'); ?>">Log in</a></li>
+                <li><a href="<?php echo base_url(INDEX . 'login'); ?>">Log in</a></li>
                 <?php } ?>
               </ul>
             </div>

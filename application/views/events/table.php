@@ -1,4 +1,14 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              Order by <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Date</a></li>
+              <li><a href="#">Event name</a></li>
+              <li><a href="#">Creator</a></li>
+            </ul>
+          </div>
           <div class="table-responsive">
             <table class="table table-striped">
               <thead>
@@ -29,5 +39,6 @@
               </tbody>
             </table>
           </div>
+          <p><?=$links?></p>
         </div>
 

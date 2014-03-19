@@ -61,7 +61,6 @@ $route['events/meeting'] = 'events/meeting';
 $route['events/social'] = 'events/social';
 
 //Prevents revealing the architecture underneath
-$route['(:any)'] = 'errors/four_oh_four';
 
 
 

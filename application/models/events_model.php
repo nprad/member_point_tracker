@@ -10,10 +10,31 @@ class Events_model extends CI_Model {
         parent::__construct();
     }
 
-    public function getEvents($pointType) {
+    public function countEvents($pointType) {
         $id = intval($this->db->query('select _id from points_periods where active=1')->row()->_id);
-        $query = $this->db->query('select name, eventDate, creator from events where points_period=? and point_type=?', array($id, $pointType));
-        return $query;
+
+        $this->db->like('points_period', $id);
+        $this->db->like('point_type', $pointType);
+        $this->db->from('events');
+        return $this->db->count_all_results();
+    }
+
+    public function getEvents($pointType, $limit, $start) {
+        $id = intval($this->db->query('select _id from points_periods where active=1')->row()->_id);
+        $this->db->limit($limit, $start);
+        $this->db->select('name, eventDate, creator');
+        $this->db->where('points_period', $id);
+        $this->db->where('point_type', $pointType);
+        $query = $this->db->get('events');
+
+        $this->load->model('UserCache', 'usercache');
+        $events = array();
+        foreach ($query->result() as $req) {
+            array_push($events, array('date' =>$req->eventDate, 'name' => $req->name,
+                'creator' => $this->usercache->getName($req->creator)));
+        }
+
+        return $events;
     }
 }
 

@@ -46,6 +46,7 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |
 */
 
+define('INDEX',                                 'index.php/');
 define('APP_NAME',                              'Natural Sciences Council');
 
 define('EVENT',                                 0);
