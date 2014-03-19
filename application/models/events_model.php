@@ -11,27 +11,42 @@ class Events_model extends CI_Model {
     }
 
     public function countEvents($pointType) {
-        $id = intval($this->db->query('select _id from points_periods where active=1')->row()->_id);
+        $this->load->model('PP_model', 'pp_model');
+        $pp = $this->pp_model->getCurrentPointsPeriod();
 
-        $this->db->like('points_period', $id);
-        $this->db->like('point_type', $pointType);
-        $this->db->from('events');
-        return $this->db->count_all_results();
+        $res = 0;
+
+        if ($pp != NULL) {
+            $this->db->like('points_period', $id);
+            $this->db->like('point_type', $pointType);
+            $this->db->from('events');
+            $res = $this->db->count_all_results();
+        }
+
+        return $res;
     }
 
     public function getEvents($pointType, $limit, $start) {
-        $id = intval($this->db->query('select _id from points_periods where active=1')->row()->_id);
-        $this->db->limit($limit, $start);
-        $this->db->select('name, eventDate, creator');
-        $this->db->where('points_period', $id);
-        $this->db->where('point_type', $pointType);
-        $query = $this->db->get('events');
+        $this->load->model('PP_model', 'pp_model');
+        $pp = $this->pp_model->getCurrentPointsPeriod();
 
-        $this->load->model('UserCache', 'usercache');
         $events = array();
-        foreach ($query->result() as $req) {
-            array_push($events, array('date' =>$req->eventDate, 'name' => $req->name,
-                'creator' => $this->usercache->getName($req->creator)));
+
+        if ($pp != NULL) {
+            $this->db->limit($limit, $start);
+            $this->db->select('name, eventDate, creator');
+            $this->db->where('points_period', $pp->id);
+            $this->db->where('point_type', $pointType);
+            $query = $this->db->get('events');
+
+            $this->load->model('UserCache', 'usercache');
+
+            if ($query->num_rows() > 0) {
+                foreach ($query->result() as $req) {
+                    array_push($events, array('date' =>$req->eventDate, 'name' => $req->name,
+                        'creator' => $this->usercache->getName($req->creator)));
+                }
+            }
         }
 
         return $events;
