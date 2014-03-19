@@ -9,11 +9,13 @@
 
     <title><?php echo APP_NAME ?></title>
 
-    <link href="<?php echo base_url('assets/img/favicon.ico'); ?>" rel="icon" type="image/x-icon">
+    <link href="<?php echo base_url('assets/img/favicon.ico') ?>" rel="icon" type="image/x-icon">
 
-    <link href="<?php echo base_url('assets/css/bootstrap.min.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/font-awesome.css'); ?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/custom.css'); ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/font-awesome.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/custom.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/carosel.css') ?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/js/flipclock.css'); ?>" rel="stylesheet">
 </head>
 <body>
 

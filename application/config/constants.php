@@ -46,7 +46,17 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 |
 */
 
+define('INDEX',                                 'index.php/');
 define('APP_NAME',                              'Natural Sciences Council');
+
+define('EVENT',                                 0);
+define('FUNDRAISING',                           1);
+define('MEETING',                               2);
+define('SOCIAL',                                3);
+
+define('PENDING',                               '0');
+define('APPROVED',                              '1');
+define('REJECTED',                              '2');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

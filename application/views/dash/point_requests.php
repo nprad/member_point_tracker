@@ -13,12 +13,20 @@
               </tr>
             </thead>
             <tbody>
+              <?php if (count($pending) > 0): ?>
+              <?php foreach ($pending as $req): ?>
               <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
+                <td><?=$req['event']; ?></td>
+                <td><?=$req['type']; ?></td>
+                <td><?=$req['dateSubmitted']; ?></td>
+                <td><?=$req['dateOfDecision']; ?></td>
               </tr>
+              <?php endforeach; ?>
+              <?php else: ?>
+              <tr>
+                <td class="text-center" colspan=4>Nuthin'</td>
+              </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
@@ -35,12 +43,20 @@
               </tr>
             </thead>
             <tbody>
+              <?php if (count($approved) > 0): ?>
+              <?php foreach ($approved as $req): ?>
               <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
+                <td><?=$req['event']; ?></td>
+                <td><?=$req['type']; ?></td>
+                <td><?=$req['dateSubmitted']; ?></td>
+                <td><?=$req['dateOfDecision']; ?></td>
               </tr>
+              <?php endforeach; ?>
+              <?php else: ?>
+              <tr>
+                <td class="text-center" colspan=4>Nuthin'</td>
+              </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
@@ -58,12 +74,22 @@
               </tr>
             </thead>
             <tbody>
+              <?php if (count($rejected) > 0): ?>
+              <?php foreach ($rejected as $req): ?>
               <tr>
-                <td>1,001</td>
-                <td>Lorem</td>
-                <td>ipsum</td>
-                <td>dolor</td>
+                <td><?=$req['event']; ?></td>
+                <td><?=$req['type']; ?></td>
+                <td><?=$req['dateSubmitted']; ?></td>
+                <td><?=$req['dateOfDecision']; ?></td>
               </tr>
+              <?php endforeach; ?>
+              <?php else: ?>
+              <tr>
+                <td class="text-center" colspan=4>Nuthin'</td>
+              </tr>
+              <?php endif; ?>
             </tbody>
           </table>
         </div>
+      </div>
+
