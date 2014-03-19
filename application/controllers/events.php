@@ -47,17 +47,15 @@ class Events extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    //TODO check to make sure there are no open validation requests
     private function getEventsArray($eventId) {
-        $this->load->library('parse');
-        $pq = $this->parse->ParseQuery('Events');
-        $pq->where('pointType', $eventId);
-        $requests = $pq->find();
-
+        $this->load->model('Events_model', 'events');
         $this->load->model('UserCache', 'usercache');
+        $query = $this->events->getEvents($eventId);
         $events = array();
-        foreach ($requests->results as $req) {
-            array_push($events, array('date' =>$req->eventDate->iso, 'name' => $req->name,
-                'creator' => $this->usercache->getName($req->createdBy->objectId)));
+        foreach ($query->result() as $req) {
+            array_push($events, array('date' =>$req->eventDate, 'name' => $req->name,
+                'creator' => $this->usercache->getName($req->creator)));
         }
 
         return $events;
