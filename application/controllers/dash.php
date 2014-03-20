@@ -20,16 +20,19 @@ class Dash extends CI_Controller {
         $this->load->view('include/header');
         $this->load->view('dash/sidebar', array('action' => 0));
         $this->load->model('PP_model', 'pp_model');
+        $this->load->model('Veri_model', 'veri_model');
 
         $data = array();
+
+        $data['points'] = $this->veri_model->getPoints();
 
         $pp = $this->pp_model->getCurrentPointsPeriod();
 
         if ($pp != NULL) {
-            $data['pp'] = array('event' => $pp->event_points,
-                'fun' => $pp->fundraising_points,
-                'meeting' => $pp->meeting_points,
-                'social' => $pp->social_points);
+            $data['pp'] = array('event' => $pp[0]->event_points,
+                'fun' => $pp[0]->fundraising_points,
+                'meeting' => $pp[0]->meeting_points,
+                'social' => $pp[0]->social_points);
         } else {
             $data['pp'] = array('event' => '-',
                 'fun' => '-',
