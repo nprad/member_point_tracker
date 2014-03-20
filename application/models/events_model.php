@@ -17,7 +17,7 @@ class Events_model extends CI_Model {
         $res = 0;
 
         if ($pp != NULL) {
-            $this->db->like('points_period', $id);
+            $this->db->like('points_period', $pp[0]->_id);
             $this->db->like('point_type', $pointType);
             $this->db->from('events');
             $res = $this->db->count_all_results();
@@ -35,7 +35,7 @@ class Events_model extends CI_Model {
         if ($pp != NULL) {
             $this->db->limit($limit, $start);
             $this->db->select('name, eventDate, creator');
-            $this->db->where('points_period', $pp->id);
+            $this->db->where('points_period', $pp[0]->_id);
             $this->db->where('point_type', $pointType);
             $query = $this->db->get('events');
 

@@ -38,7 +38,7 @@
 |
 */
 
-$route['default_controller'] = 'info';
+$route['default_controller'] = 'dash';
 $route['404_override'] = 'errors/four_oh_four';
 
 //User controller
@@ -56,9 +56,14 @@ $route['dash/settings'] = 'dash/settings';
 //Events controller
 $route['events'] = 'events/index';
 $route['events/event'] = 'events/event';
+$route['events/event/(:any)'] = 'events/event';
 $route['events/fundraising'] = 'events/fundraising';
+$route['events/fundraising/(:any)'] = 'events/fundraising';
 $route['events/meeting'] = 'events/meeting';
+$route['events/meeting/(:any)'] = 'events/meeting';
 $route['events/social'] = 'events/social';
+$route['events/social/(:any)'] = 'events/social';
+
 
 //Prevents revealing the architecture underneath
 

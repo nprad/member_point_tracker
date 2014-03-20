@@ -18,7 +18,7 @@ class PP_model extends CI_Model {
     public function getCurrentPointsPeriod() {
         $query = $this->db->query('select * from points_periods where active=1 limit 1');
 
-        if ($query->num_rows > 1) {
+        if ($query->num_rows() > 0) {
             return $query->result();
         } else {
             return NULL;
