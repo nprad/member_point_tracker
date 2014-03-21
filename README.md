@@ -1,33 +1,34 @@
-## TODO
+## TODO (mark with a '+' inside box when complete)
 
 1. Events page
     
-    + a. load all events with pagination
+    [+] load all events with pagination
 
-    b. javascript button opens validation request
+    [ ] javascript button opens validation request
     
-    c. datetime formatting
+    [ ] datetime formatting
 
 2. Dashboard
 
-    a. center countdown and add content to announcements
+    [ ] center countdown and add content to announcements
 
-    + b. load points requirements, calculate current points
+    [+] load points requirements, calculate current points
     
-    c. load all points requests
+    [+] load all points requests
     
-    d. implement messages
+    [ ] implement messages
 
 3. DB
 
-    a. add columns in points period for points requirements
+    [+] add columns in points period for points requirements
     
-    b. fix datetime issues
+    [ ] fix datetime issues
     
-    c. create validation request model
+    [+] create validation request model
     
-    d. create message model
+    [ ] create message model
 
 4. API
 
-    a. implement controller with proper security to handle api calls
+    [ ] implement controller with proper security to handle api calls
+    
