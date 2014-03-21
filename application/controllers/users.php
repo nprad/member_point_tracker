@@ -1,19 +1,27 @@
 <?php if (!defined('BASEPATH')) die();
 
+/**
+ * Controls login and logout operations
+ *
+ * @author Sam
+ */
 class Users extends CI_Controller {
 
+    /**
+     * When navigating to users, redirect to dash
+     * login will be brought up automatically if not
+     * logged in
+     *
+     */
     public function index() {
-        if (!$this->session->userdata('loggedIn')) {
-            $this->load->helper('form');
-            $this->load->view('include/header', array('validSession' => FALSE));
-            $this->load->view('frontpage');
-            $this->load->view('include/footer');
-        } else {
-            redirect('requirements');
-        }
-
+        redirect('dash/requirements');
     }
 
+    /**
+     * Handles authentication via posts. Redirects to dash
+     * on success and login on fail.
+     *
+     */
     public function login() {
         if (!$this->session->userdata('loggedIn')) {
             $username = $this->input->post('username');
@@ -48,9 +56,6 @@ class Users extends CI_Controller {
                 $this->session->set_userdata('name', $request->firstName . ' ' . $request->lastName);
                 redirect('dash');
             } else {
-                //for whatever reason the flash data only shows up when
-                //the login fails, not when it is brought up by another
-                //controller. hmm...
                 $this->load->helper('form');
                 $this->load->view('include/header-nologin');
                 $this->load->view('templates/login.php');
@@ -61,6 +66,10 @@ class Users extends CI_Controller {
         }
     }
 
+    /**
+     * Destroys session and redirects to login screen
+     *
+     */
     public function logout() {
         $this->session->sess_destroy();
         redirect('');
