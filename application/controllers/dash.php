@@ -16,32 +16,41 @@ class Dash extends CI_Controller {
         $this->load->view('dash/footer');
     }
 
+    /**
+     * Page that displays points requirements
+     *
+     * renders page only if user is level 0
+     */
     public function requirements() {
-        $this->load->view('include/header');
-        $this->load->view('dash/sidebar', array('action' => 0));
-        $this->load->model('PP_model', 'pp_model');
-        $this->load->model('Veri_model', 'veri_model');
+        if ($this->session->userdata('permissionLevel') == MEMBER) {
+            $this->load->view('include/header');
+            $this->load->view('dash/sidebar', array('action' => 0));
+            $this->load->model('PP_model', 'pp_model');
+            $this->load->model('Veri_model', 'veri_model');
 
-        $data = array();
+            $data = array();
 
-        $data['points'] = $this->veri_model->getPoints($this->session->userdata('objectId'));
+            $data['points'] = $this->veri_model->getPoints($this->session->userdata('objectId'));
 
-        $pp = $this->pp_model->getCurrentPointsPeriod();
+            $pp = $this->pp_model->getCurrentPointsPeriod();
 
-        if ($pp != NULL) {
-            $data['pp'] = array('event' => $pp->event_points,
-                'fun' => $pp->fundraising_points,
-                'meeting' => $pp->meeting_points,
-                'social' => $pp->social_points);
+            if ($pp != NULL) {
+                $data['pp'] = array('event' => $pp->event_points,
+                    'fun' => $pp->fundraising_points,
+                    'meeting' => $pp->meeting_points,
+                    'social' => $pp->social_points);
+            } else {
+                $data['pp'] = array('event' => '-',
+                    'fun' => '-',
+                    'meeting' => '-',
+                    'social' => '-');
+            }
+
+            $this->load->view('dash/point_reqs', $data);
+            $this->load->view('include/footer');
         } else {
-            $data['pp'] = array('event' => '-',
-                'fun' => '-',
-                'meeting' => '-',
-                'social' => '-');
+            redirect('errors/four_oh_four');
         }
-
-        $this->load->view('dash/point_reqs', $data);
-        $this->load->view('include/footer');
     }
 
     public function point_requests() {

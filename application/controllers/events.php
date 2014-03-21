@@ -44,13 +44,15 @@ class Events extends CI_Controller {
     }
 
     public function create() {
-        if ($this->session->userdata('permissionLevel') > 0) {
+        if ($this->session->userdata('permissionLevel') > MEMBER) {
+            $this->load->helper('form');
             $this->load->view('include/header');
             $this->load->view('events/sidebar', array('action' => 4));
+            $this->load->view('events/create');
             $this->load->view('include/footer');
             
         } else {
-            redirect('four_oh_four');
+            redirect('errors/four_oh_four');
         }
     }
 

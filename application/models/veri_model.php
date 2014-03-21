@@ -9,6 +9,8 @@ class Veri_model extends CI_Model {
     /**
      * Given a user's objectId, calculate points.
      *
+     * Assumes that an object id has only one request per event
+     *
      * @returns an array keyed by the event types
      * with the member's total points
      */

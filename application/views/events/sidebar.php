@@ -2,7 +2,7 @@
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <?php if ($this->session->userdata('permissionLevel') > 0): ?>
+            <?php if ($this->session->userdata('permissionLevel') > MEMBER): ?>
             <li class="<?php echo $action == 4? 'active' : ''; ?>"><a href="<?php echo base_url(INDEX . 'events/create'); ?>"><span class="glyphicon glyphicon-plus"></span> Create event</a></li>
           </ul>
           <ul class="nav nav-sidebar">
