@@ -26,9 +26,11 @@
                   <td><?=$e['date']; ?></td>
                   <td><?=$e['name']; ?></td>
                   <td><?=$e['creator']; ?></td>
+                  <?php if ($this->session->userdata('permissionLevel') < 1): ?>
                   <td><button type="button" class="btn btn-success">
   <span class="glyphicon glyphicon-ok"></span> I was there!
-</button></td>
+                  </button></td>
+                  <?php endif; ?>
                 </tr>
                 <?php endforeach; ?>
                 <?php else: ?>

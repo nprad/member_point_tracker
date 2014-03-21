@@ -54,6 +54,7 @@ define('FUNDRAISING',                           1);
 define('MEETING',                               2);
 define('SOCIAL',                                3);
 
+
 define('PENDING',                               '0');
 define('APPROVED',                              '1');
 define('REJECTED',                              '2');
