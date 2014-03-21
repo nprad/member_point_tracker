@@ -54,9 +54,15 @@ define('FUNDRAISING',                           1);
 define('MEETING',                               2);
 define('SOCIAL',                                3);
 
+
 define('PENDING',                               '0');
 define('APPROVED',                              '1');
 define('REJECTED',                              '2');
+
+define('MEMBER',                                0);
+define('EXEC',                                  1);
+define('AD',                                    2);
+define('IT',                                    3);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

@@ -36,6 +36,7 @@ create table events (
 create table verification_requests (
         _id int unsigned not null auto_increment,
         event int unsigned not null,
+        status int not null,
         requester varchar(30) not null,
         created_at timestamp default CURRENT_TIMESTAMP,
         updated_at timestamp,

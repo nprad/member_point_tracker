@@ -43,6 +43,19 @@ class Events extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    public function create() {
+        if ($this->session->userdata('permissionLevel') > MEMBER) {
+            $this->load->helper('form');
+            $this->load->view('include/header');
+            $this->load->view('events/sidebar', array('action' => 4));
+            $this->load->view('events/create');
+            $this->load->view('include/footer');
+            
+        } else {
+            redirect('errors/four_oh_four');
+        }
+    }
+
     private function eventTable($methodName, $pointType) {
         $this->load->helper('form');
         $this->load->library('pagination');

@@ -16,32 +16,41 @@ class Dash extends CI_Controller {
         $this->load->view('dash/footer');
     }
 
+    /**
+     * Page that displays points requirements
+     *
+     * renders page only if user is level 0
+     */
     public function requirements() {
-        $this->load->view('include/header');
-        $this->load->view('dash/sidebar', array('action' => 0));
-        $this->load->model('PP_model', 'pp_model');
-        $this->load->model('Veri_model', 'veri_model');
+        if ($this->session->userdata('permissionLevel') == MEMBER) {
+            $this->load->view('include/header');
+            $this->load->view('dash/sidebar', array('action' => 0));
+            $this->load->model('PP_model', 'pp_model');
+            $this->load->model('Veri_model', 'veri_model');
 
-        $data = array();
+            $data = array();
 
-        $data['points'] = $this->veri_model->getPoints();
+            $data['points'] = $this->veri_model->getPoints($this->session->userdata('objectId'));
 
-        $pp = $this->pp_model->getCurrentPointsPeriod();
+            $pp = $this->pp_model->getCurrentPointsPeriod();
 
-        if ($pp != NULL) {
-            $data['pp'] = array('event' => $pp[0]->event_points,
-                'fun' => $pp[0]->fundraising_points,
-                'meeting' => $pp[0]->meeting_points,
-                'social' => $pp[0]->social_points);
+            if ($pp != NULL) {
+                $data['pp'] = array('event' => $pp->event_points,
+                    'fun' => $pp->fundraising_points,
+                    'meeting' => $pp->meeting_points,
+                    'social' => $pp->social_points);
+            } else {
+                $data['pp'] = array('event' => '-',
+                    'fun' => '-',
+                    'meeting' => '-',
+                    'social' => '-');
+            }
+
+            $this->load->view('dash/point_reqs', $data);
+            $this->load->view('include/footer');
         } else {
-            $data['pp'] = array('event' => '-',
-                'fun' => '-',
-                'meeting' => '-',
-                'social' => '-');
+            redirect('errors/four_oh_four');
         }
-
-        $this->load->view('dash/point_reqs', $data);
-        $this->load->view('include/footer');
     }
 
     public function point_requests() {
@@ -51,18 +60,19 @@ class Dash extends CI_Controller {
         //gets all requests at once, takes advantage of caching dbs
         //to make the queries more effiecient
         //will later move to mysql and create my own api
-        $this->load->library('parse');
-        $pq = $this->parse->ParseQuery('VerificationRequests');
-        $pq->wherePointer('user', '_User', $this->session->userdata('objectId'));
-        $requests = $pq->find();
+        $this->load->model('Veri_model', 'veri_model');
+        $this->load->model('Events_model', 'events_model');
+        $requests = $this->veri_model->getRequests($this->session->userdata('objectId'));
 
         $this->load->model('EventsCache', 'eventscache');
         $pending = array();
         $approved = array();
         $rejected = array();
-        foreach ($requests->results as $req) {
-            $entry = array('event' => $this->eventscache->getName($req->event->objectId),
-               'type' => $req->pointType, 'dateSubmitted' => $req->createdAt);
+        foreach ($requests as $req) {
+            $entry = 
+                array('event' => $this->events_model->getEventName($req->event), 
+                'type' => $this->events_model->eventTypeString($req->point_type), 
+                'dateSubmitted' => $req->created_at);
 
             switch($req->status) {
                 case PENDING:
@@ -70,11 +80,11 @@ class Dash extends CI_Controller {
                     array_push($pending, $entry);
                     break;
                 case APPROVED:
-                    $entry['dateOfDecision'] = $req->updatedAt;
+                    $entry['dateOfDecision'] = $req->updated_at;
                     array_push($approved, $entry);
                     break;
                 case REJECTED:
-                    $entry['dateOfDecision'] = $req->updatedAt;
+                    $entry['dateOfDecision'] = $req->updated_at;
                     array_push($rejected, $entry);
                     break;
             }
