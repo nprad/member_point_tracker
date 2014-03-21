@@ -1,20 +1,37 @@
 <?php if (!defined('BASEPATH')) die();
 
+/**
+ * Controller responsible for serving up events
+ * in their respective categories.
+ *
+ * @author Sam
+ */
 class Events extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
+
+        //user must be logged in to access this controller
         if (!$this->session->userdata('loggedIn')) {
             redirect('login');
         }
     }
 
+    /**
+     * Right now this just renders a blank page with
+     * no event type selected. Need content for this page.
+     *
+     */
     public function index() {
         $this->load->view('include/header');
         $this->load->view('events/sidebar', array('action' => -1));
         $this->load->view('include/footer');
     }
 
+    /**
+     * Events
+     *
+     */
     public function event() {
         $this->load->view('include/header');
         $this->load->view('events/sidebar', array('action' => EVENT));
@@ -22,6 +39,10 @@ class Events extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    /**
+     * Events
+     *
+     */
     public function fundraising() {
         $this->load->view('include/header');
         $this->load->view('events/sidebar', array('action' => FUNDRAISING));
@@ -29,6 +50,10 @@ class Events extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    /**
+     * Events
+     *
+     */
     public function meeting() {
         $this->load->view('include/header'); 
         $this->load->view('events/sidebar', array('action' => MEETING));
@@ -36,6 +61,10 @@ class Events extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    /**
+     * Events
+     *
+     */
     public function social() {
         $this->load->view('include/header');
         $this->load->view('events/sidebar', array('action' => SOCIAL));
@@ -43,7 +72,14 @@ class Events extends CI_Controller {
         $this->load->view('include/footer');
     }
 
+    /**
+     * Creates an event. Right now it will be a php form
+     * but may move to javascript.
+     *
+     */
     public function create() {
+        //This is restricted to users with permission level
+        //higher than member
         if ($this->session->userdata('permissionLevel') > MEMBER) {
             $this->load->helper('form');
             $this->load->view('include/header');
@@ -56,6 +92,12 @@ class Events extends CI_Controller {
         }
     }
 
+    /**
+     * Renders the table with pagination (yay!)
+     * with all the events in the current points period
+     * for a given category
+     *
+     */
     private function eventTable($methodName, $pointType) {
         $this->load->helper('form');
         $this->load->library('pagination');
