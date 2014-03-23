@@ -1,8 +1,8 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
           <h1 class="page-header">Current point requests</h1>
 
-        <h2 class="sub-header">Pending</h2>
-        <div class="table-responsive">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h3><strong>Pending</strong></h3></div>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -31,8 +31,8 @@
           </table>
         </div>
 
-        <h2 class="sub-header green">Approved</h2>
-        <div class="table-responsive">
+        <div class="panel panel-success">
+          <div class="panel-heading"><h3><strong>Approved</strong></h3></div>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -62,8 +62,8 @@
         </div>
 
 
-        <h2 class="sub-header red">Not approved</h2>
-        <div class="table-responsive">
+        <div class="panel panel-danger">
+          <div class="panel-heading"><h3><strong>Not approved</strong></h3></div>
           <table class="table table-striped">
             <thead>
               <tr>
