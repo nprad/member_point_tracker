@@ -12,16 +12,20 @@
 
                 // Grab the current date
                 var currentDate = new Date();
+                var ppEnd = <?php echo $ppEnd; ?>;
 
                 // Set some date in the past. In this case, it's always been since Jan 1
-                var pastDate  = new Date(currentDate.getFullYear(), 0, 1);
+                var futureDate  = new Date(ppEnd);
 
                 // Calculate the difference in seconds between the future and current date
-                var diff = currentDate.getTime() / 1000 - pastDate.getTime() / 1000;
+                var diff = futureDate.getTime() / 1000 - currentDate.getTime() / 1000;
+
+                diff = (diff > 0) ? diff : 0;
 
                 // Instantiate a coutdown FlipClock
                 clock = $('.clock').FlipClock(diff, {
                     clockFace: 'DailyCounter',
+                    countdown: 'true',
                 });
             });
   </script>

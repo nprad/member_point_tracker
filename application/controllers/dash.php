@@ -25,7 +25,14 @@ class Dash extends CI_Controller {
     public function index() {
         $this->load->view('dash/header');
         $this->load->view('dash/sidebar', array('action' => -1));
-        $this->load->view('dash/index');
+
+        $this->load->model('PP_model', 'pp_model');
+
+        $pp = $this->pp_model->getCurrentPointsPeriod();
+        $ppEnd = new DateTime($pp->ends);
+        $data['ppEnd'] = $ppEnd->getTimestamp() * 1000;
+        
+        $this->load->view('dash/index', $data);
         $this->load->view('dash/footer');
     }
 
