@@ -1,8 +1,9 @@
 
  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
+                <font size="5"><strong>Current points:</strong></font>
 
-          <div class="row placeholders">
+          <div class="row placeholders" style="padding-top: 10px">
 
             <div class="col-md-6">
               <div class="panel <?php echo $points[EVENT] < $pp['event'] ? 'panel-danger' : 'panel-success'; ?>">

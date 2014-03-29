@@ -48,7 +48,6 @@ $route['logout'] = 'users/logout';
 
 //Dash controller
 $route['dash'] = 'dash';
-$route['dash/requirements'] = 'dash/requirements';
 $route['dash/point-requests'] = 'dash/point_requests';
 $route['dash/messages'] = 'dash/messages';
 $route['dash/settings'] = 'dash/settings';

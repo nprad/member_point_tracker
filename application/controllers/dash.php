@@ -33,20 +33,8 @@ class Dash extends CI_Controller {
         $data['ppEnd'] = $ppEnd->getTimestamp() * 1000;
         
         $this->load->view('dash/index', $data);
-        $this->load->view('dash/footer');
-    }
 
-    /**
-     * Page that displays points requirements
-     *
-     * renders page only if user is level 0
-     */
-    public function requirements() {
-        //only render if level 0
         if ($this->session->userdata('permissionLevel') == MEMBER) {
-
-            $this->load->view('include/header');
-            $this->load->view('dash/sidebar', array('action' => 0));
 
             $this->load->model('PP_model', 'pp_model');
             $this->load->model('Veri_model', 'veri_model');
@@ -70,10 +58,9 @@ class Dash extends CI_Controller {
             }
 
             $this->load->view('dash/point_reqs', $data);
-            $this->load->view('include/footer');
-        } else {
-            redirect('errors/four_oh_four');
-        }
+        } 
+
+        $this->load->view('dash/footer');
     }
 
     /**
