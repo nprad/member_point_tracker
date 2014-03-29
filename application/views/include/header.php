@@ -18,7 +18,7 @@
 <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
+      <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -29,14 +29,6 @@
           <a class="navbar-brand" href="<?php echo base_url(INDEX); ?>"><?php echo APP_NAME ?></a>
         </div>
 
-<!--
-        <div class="navbar-collapse navbar-right collapse">
-            <ul class="nav navbar-nav">
-                <li><a title="Log out" href="<?php echo base_url('logout'); ?>"><span class="glyphicon glyphicon-log-out white navbar-right glyphicon-navbar"></span></a></li>
-                <li><a href="<?php echo base_url('requirements'); ?>"><span title="Profile" class="glyphicon glyphicon-user white navbar-right glyphicon-navbar"></span></a></li>
-                <li><a href="<?php echo base_url('events'); ?>"><span title="Events" class="glyphicon glyphicon-calendar white navbar-right glyphicon-navbar"></span></a></li>
-            </ul>
-        </div>-->
         <div class="navbar-collapse navbar-right collapse">
               <ul class="nav navbar-nav">
                 <li><a href="#about">About</a></li>

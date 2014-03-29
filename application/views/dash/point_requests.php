@@ -1,8 +1,7 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Current point requests</h1>
 
         <div class="panel panel-default">
-          <div class="panel-heading"><h3><strong>Pending</strong></h3></div>
+          <div class="panel-heading"><h3><strong>Pending requests</strong></h3></div>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -32,7 +31,7 @@
         </div>
 
         <div class="panel panel-success">
-          <div class="panel-heading"><h3><strong>Approved</strong></h3></div>
+          <div class="panel-heading"><h3><strong>Approved requests</strong></h3></div>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -63,7 +62,7 @@
 
 
         <div class="panel panel-danger">
-          <div class="panel-heading"><h3><strong>Not approved</strong></h3></div>
+          <div class="panel-heading"><h3><strong>Rejected requests</strong></h3></div>
           <table class="table table-striped">
             <thead>
               <tr>
