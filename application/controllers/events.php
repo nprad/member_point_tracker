@@ -81,11 +81,29 @@ class Events extends CI_Controller {
         //This is restricted to users with permission level
         //higher than member
         if ($this->session->userdata('permissionLevel') > MEMBER) {
-            $this->load->helper('form');
-            $this->load->view('include/header');
-            $this->load->view('events/sidebar', array('action' => 4));
-            $this->load->view('events/create');
-            $this->load->view('include/footer');
+
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('eventName', 'Event name', 'trim|required');
+            $this->form_validation->set_rules('pointType', 'Point type', 'required');
+            $this->form_validation->set_rules('pointsPeriod', 'Points period', 'required');
+            $this->form_validation->set_rules('eventDate', 'Event date', 'required');
+            $this->form_validation->set_rules('eventTime', 'Event date', 'required');
+
+            if (!$this->form_validation->run()) {
+                $this->load->helper('form');
+                $this->load->view('include/header');
+                $this->load->view('events/sidebar', array('action' => 4));
+                $this->load->view('events/create');
+                $this->load->view('include/footer');
+            } else {
+                $eventName = $this->input->post('eventName');
+                $pointType = $this->input->post('pointType');
+                $pointsPeriod = $this->input->post('pointsPeriod');
+                $creator = $this->session->userdata('objectId');
+                $eventDate = $this->input->post('eventDate');
+                $eventTime = $this->input->post('eventTime');
+
+            }
             
         } else {
             redirect('errors/four_oh_four');

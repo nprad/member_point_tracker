@@ -183,6 +183,7 @@ class ParseRestClient{
 
             if ($error == NULL) {
                 $error->error = 'Server has lost connection to authentication';
+                $error->code = '2048';
             }
 
             $this->throwError($error->error,$error->code);
