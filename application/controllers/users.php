@@ -51,11 +51,15 @@ class Users extends CI_Controller {
             if (!$authFailed) {
                 $this->session->set_flashdata('login_error', '');
                 
-                //security vulnerability?
                 $this->session->set_userdata('loggedIn', strlen($request->objectId) > 0);
                 $this->session->set_userdata('permissionLevel', $request->permissionLevel);
                 $this->session->set_userdata('objectId', $request->objectId);
                 $this->session->set_userdata('name', $request->firstName . ' ' . $request->lastName);
+
+                //make sure that the user is in the cache
+                $this->load->model('Usercache', 'usercache');
+                $this->usercache->getName($request->objectId);
+
                 redirect('dash');
             } else {
                 $this->load->helper('form');

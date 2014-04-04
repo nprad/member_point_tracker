@@ -102,5 +102,15 @@ class Events_model extends CI_Model {
             return '';
         }
     }
+
+    public function createEvent($eventName, $pointType, 
+            $pointsPeriod, $creator, $eventDate) {
+
+        $values = array('name' => $eventName, 'point_type' => $pointType,
+            'points_period' => $pointsPeriod, 'creator' => $creator,
+            'eventDate' => $eventDate);
+
+        $this->db->insert('events', $values);
+    }
 }
 
