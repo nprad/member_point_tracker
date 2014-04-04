@@ -83,26 +83,59 @@ class Events extends CI_Controller {
         if ($this->session->userdata('permissionLevel') > MEMBER) {
 
             $this->load->library('form_validation');
-            $this->form_validation->set_rules('eventName', 'Event name', 'trim|required');
-            $this->form_validation->set_rules('pointType', 'Point type', 'required');
-            $this->form_validation->set_rules('pointsPeriod', 'Points period', 'required');
-            $this->form_validation->set_rules('eventDate', 'Event date', 'required');
-            $this->form_validation->set_rules('eventTime', 'Event date', 'required');
+
+            $this->form_validation->set_rules('eventName', 'event name', 'trim|required');
+            $this->form_validation->set_rules('pointType', 'point type', 'required');
+            $this->form_validation->set_rules('pointsPeriod', 'points period', 'required');
+            $this->form_validation->set_rules('eventDate', 'event date', 'callback_date_check');
+            $this->form_validation->set_rules('eventTime', 'event time', 'callback_time_check');
+
+            $data['valid'] = false;
 
             if (!$this->form_validation->run()) {
+
                 $this->load->helper('form');
+
                 $this->load->view('include/header');
                 $this->load->view('events/sidebar', array('action' => 4));
-                $this->load->view('events/create');
+
+                $this->load->model('PP_model', 'pp_model');
+                $data['pps'] = $this->pp_model->getAllPointsPeriodsForDropdown();
+                $this->load->view('events/create', $data);
                 $this->load->view('include/footer');
+
             } else {
+
+                $pointsPeriod = $this->input->post('pointsPeriod');
                 $eventName = $this->input->post('eventName');
                 $pointType = $this->input->post('pointType');
-                $pointsPeriod = $this->input->post('pointsPeriod');
                 $creator = $this->session->userdata('objectId');
-                $eventDate = $this->input->post('eventDate');
-                $eventTime = $this->input->post('eventTime');
 
+                //time params
+                $hours = $this->input->post('eventTimeHours');
+                $min = $this->input->post('eventTimeMinutes');
+                $ampm = $this->input->post('eventTimeAMPM');
+                if ($ampm == 'PM')
+                    $hours = ($hours + 12) % 24;
+
+                //date params
+                $month = $this->input->post('eventDateMonth');
+                $day = $this->input->post('eventDateDay');
+
+                $this->load->model('Events_model', 'events_model');
+                $this->events_model->createEvent($eventName, $pointType, $pointsPeriod, $creator, date("Y") . '-' . $month . '-' . $day . ' ' . $hours . ':' . $min . ':00');
+
+                $data['valid'] = true;
+
+                $this->load->helper('form');
+
+                $this->load->view('include/header');
+                $this->load->view('events/sidebar', array('action' => 4));
+
+                $this->load->model('PP_model', 'pp_model');
+                $data['pps'] = $this->pp_model->getAllPointsPeriodsForDropdown();
+                $this->load->view('events/create', $data);
+                $this->load->view('include/footer');
             }
             
         } else {
@@ -138,5 +171,42 @@ class Events extends CI_Controller {
 
         $data['links'] = $this->pagination->create_links();
         $this->load->view('events/table.php', $data);
+    }
+
+    /**
+     * Callback that makes sure that the date field
+     * is set. Unfortunately, I had to hardcode each
+     * of the fields.
+     *
+     */
+    public function date_check($str) {
+        $month = $this->input->post('eventDateMonth');
+        $day = $this->input->post('eventDateDay');
+
+        if (empty($month) || empty($day)) {
+            $this->form_validation->set_message('date_check', 'The %s field is required');
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Callback that makes sure that the time field
+     * is set. Unfortunately, I had to hardcode each
+     * of the fields.
+     *
+     */
+    public function time_check($str) {
+        $hours = $this->input->post('eventTimeHours');
+        $min = $this->input->post('eventTimeMinutes');
+        $ampm = $this->input->post('eventTimeAMPM');
+
+        if (empty($hours) || empty($min) || empty($ampm)) {
+            $this->form_validation->set_message('time_check', 'The %s field is required');
+            return false;
+        }
+
+        return true;
     }
 }
